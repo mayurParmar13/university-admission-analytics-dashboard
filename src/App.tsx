@@ -1,9 +1,9 @@
-import AdminLayout from "./layout/AdminLayout";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
   return (
     <div>
-      <AdminLayout>App Page</AdminLayout>
+      <Dashboard />
     </div>
   );
 };
