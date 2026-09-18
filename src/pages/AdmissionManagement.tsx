@@ -1,11 +1,5 @@
-import AdminLayout from "../layout/AdminLayout";
-
 const AdmissionManagement = () => {
-  return (
-    <AdminLayout>
-      <h1>Admisstion Management</h1>
-    </AdminLayout>
-  );
+  return <h1>Admisstion Management</h1>;
 };
 
 export default AdmissionManagement;

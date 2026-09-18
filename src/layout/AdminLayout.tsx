@@ -1,12 +1,8 @@
-import type { ReactNode } from "react";
+import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 
-interface IAdminLayout {
-  children: ReactNode;
-}
-
-const AdminLayout = ({ children }: IAdminLayout) => {
+const AdminLayout = () => {
   return (
     <div className="min-h-screen bg-slate-50">
       <div className="flex min-h-screen">
@@ -22,7 +18,9 @@ const AdminLayout = ({ children }: IAdminLayout) => {
 
           {/* Page Content */}
           <main className="flex-1 p-4 sm:p-6 lg:p-8">
-            <div className="mx-auto w-full max-w-[1600px]">{children}</div>
+            <div className="mx-auto w-full max-w-[1600px]">
+              <Outlet />{" "}
+            </div>
           </main>
         </div>
       </div>

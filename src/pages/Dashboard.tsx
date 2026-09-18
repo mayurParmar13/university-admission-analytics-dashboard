@@ -1,11 +1,5 @@
-import AdminLayout from "../layout/AdminLayout";
-
 const Dashboard = () => {
-  return (
-    <AdminLayout>
-      <h1>Admin Dashboard</h1>
-    </AdminLayout>
-  );
+  return <h1>Admin Dashboard</h1>;
 };
 
 export default Dashboard;

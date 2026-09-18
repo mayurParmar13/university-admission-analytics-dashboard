@@ -1,7 +1,5 @@
-import AdminLayout from "../layout/AdminLayout";
-
 const Profile = () => {
-  return <AdminLayout>Profile</AdminLayout>;
+  return <h1>Profile</h1>;
 };
 
 export default Profile;
