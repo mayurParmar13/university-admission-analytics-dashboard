@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import {
-  getApplicantCountColor,
-  getTrendColor,
+    getApplicantCountColor,
+    getTrendColor,
 } from "../../utils/statCardUtils";
 
 interface StatCardProps {

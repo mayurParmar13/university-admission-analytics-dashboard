@@ -1,7 +1,13 @@
 import { RefreshCw, UserCheck, Users, UserX } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { fetchAdmissionAnalytics } from "../api/analytics";
+import AdminPageLayout from "../components/common/AdminPageLayout";
+import NoDataComponent from "../components/common/NoDataComponent";
+import PageHeader from "../components/common/PageHeader";
 import StatCard from "../components/common/StatCard";
+import ApplicationBarChart from "../components/dashboard/ApplicationBarChart";
+import ApplicationTrendChart from "../components/dashboard/ApplicationTrendChart";
+import DashboardSection from "../components/dashboard/DashboardSection";
 import type { AdmissionAnalytics } from "../types/analytics";
 
 const Dashboard = () => {
@@ -54,19 +60,24 @@ const Dashboard = () => {
     ];
   }, [analytics]);
 
-  if (loading) {
+  /*
+   * Initial loading state
+   * Only show the full skeleton when no analytics data exists yet.
+   */
+  if (loading && !analytics) {
     return (
-      <main className="min-h-screen bg-background p-6">
+      <main className="min-h-screen bg-background">
         <div className="mx-auto max-w-7xl">
           <div className="animate-pulse">
             <div className="h-8 w-64 rounded bg-slate-200" />
-            <div className="mt-2 h-4 w-96 rounded bg-slate-200" />
-
+            <div className="mt-2 h-4 w-96 max-w-full rounded bg-slate-200" />
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {[1, 2, 3].map((item) => (
                 <div key={item} className="h-32 rounded-2xl bg-slate-200" />
               ))}
             </div>
+            <div className="mt-6 h-96 rounded-2xl bg-slate-200" />
+            <div className="mt-6 h-96 rounded-2xl bg-slate-200" />
           </div>
         </div>
       </main>
@@ -80,9 +91,7 @@ const Dashboard = () => {
           <h2 className="text-lg font-semibold text-slate-900">
             Something went wrong
           </h2>
-
           <p className="mt-2 text-sm text-secondary">{error}</p>
-
           <button
             type="button"
             onClick={loadAnalytics}
@@ -97,43 +106,71 @@ const Dashboard = () => {
   }
 
   return (
-    <main className="min-h-screen bg-background p-4 sm:p-6">
-      <div className="mx-auto max-w-7xl">
-        {/* Header */}
-        <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
-              Admission Analytics
-            </h1>
-
-            <p className="mt-1 text-sm text-secondary">
-              Monitor university application performance and trends.
-            </p>
-          </div>
-
+    <AdminPageLayout>
+      <PageHeader
+        title="Admission Analytics"
+        description="Monitor university application performance and trends."
+        action={
           <button
             type="button"
             onClick={loadAnalytics}
-            className="inline-flex w-fit items-center gap-2 rounded-lg border border-border bg-surface px-4 py-2.5 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50"
+            disabled={loading}
+            className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-4 py-2.5 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            <RefreshCw className="h-4 w-4" />
-            Refresh
+            <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
+            {loading ? "Refreshing..." : "Refresh"}
           </button>
-        </header>
+        }
+      />
 
-        {/* Stats */}
-        <section className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {stats.map((stat) => (
-            <StatCard
-              key={stat.title}
-              title={stat.title}
-              value={stat.value}
-              icon={stat.icon}
-            />
-          ))}
-        </section>
-      </div>
-    </main>
+      {/* Stats */}
+      <section className="my-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {stats.map((stat) => (
+          <StatCard
+            key={stat.title}
+            title={stat.title}
+            value={stat.value}
+            icon={stat.icon}
+          />
+        ))}
+      </section>
+
+      <DashboardSection
+        title="Applications per Program"
+        description="Application distribution across university programs."
+      >
+        {analytics?.applicationsPerProgram?.length ? (
+          <ApplicationBarChart data={analytics.applicationsPerProgram} />
+        ) : (
+          <NoDataComponent
+            title="No program data available"
+            subtitle="There are no applications to display."
+          />
+        )}
+      </DashboardSection>
+
+      <DashboardSection
+        title="Application Trends"
+        description="Daily application activity over the selected period."
+        className="mt-6"
+      >
+        {analytics?.applicationTrends?.length ? (
+          <ApplicationTrendChart data={analytics.applicationTrends} />
+        ) : (
+          <NoDataComponent
+            title="No application trends available"
+            subtitle="There is no application activity to display."
+          />
+        )}
+      </DashboardSection>
+
+      {/* Refresh Error */}
+      {error && analytics && (
+        <div className="mt-4 rounded-lg border border-danger/20 bg-danger/5 px-4 py-3 text-sm text-danger">
+          {error}
+        </div>
+      )}
+    </AdminPageLayout>
   );
 };
 
