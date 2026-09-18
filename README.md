@@ -1,75 +1,77 @@
-# React + TypeScript + Vite
+# University Admission Analytics Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive university admin dashboard for monitoring admission
+application performance.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+-   Total, verified, and rejected applicants
+-   Applications per program bar chart
+-   Application trends line chart
+-   From/To date filtering
+-   Refresh data functionality
+-   Loading, error, and no-data states
+-   Responsive desktop, tablet, and mobile UI
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+-   React + TypeScript
+-   Vite
+-   Tailwind CSS
+-   Recharts
+-   Axios
+-   Lucide React
 
-## Expanding the ESLint configuration
+## API
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+``` text
+GET /api/v1/analytics/admissions
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+The project currently uses mock/demo admission analytics data.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Project Structure
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+``` text
+src/
+├── api/
+├── components/
+│   ├── common/
+│   └── dashboard/
+├── hooks/
+├── mock/
+├── pages/
+├── types/
+├── utils/
+├── App.tsx
+└── main.tsx
 ```
+
+## Setup
+
+``` bash
+npm install
+npm run dev
+```
+
+## Production Build
+
+``` bash
+npm run build
+npm run preview
+```
+
+## Navigation
+
+``` text
+Dashboard
+Admissions
+Profile
+```
+
+## Architecture
+
+Common admin components such as `AdminPageLayout`, `PageHeader`,
+`StatCard`, and `NoDataComponent` are reusable across pages.
+Admission-specific charts and sections are kept in the dashboard
+components.
