@@ -7,7 +7,7 @@ const AdminLayout = () => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen">
       <div className="flex min-h-screen">
         {/* Desktop Sidebar */}
         <aside className="hidden w-72 shrink-0 border-r border-slate-200 bg-white lg:block">
