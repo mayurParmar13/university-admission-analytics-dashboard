@@ -2,6 +2,7 @@ import { RefreshCw, UserCheck, Users, UserX } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { fetchAdmissionAnalytics } from "../api/analytics";
 import AdminPageLayout from "../components/common/AdminPageLayout";
+import Button from "../components/common/Button";
 import NoDataComponent from "../components/common/NoDataComponent";
 import PageHeader from "../components/common/PageHeader";
 import StatCard from "../components/common/StatCard";
@@ -98,14 +99,14 @@ const Dashboard = () => {
             Something went wrong
           </h2>
           <p className="mt-2 text-sm text-secondary">{error}</p>
-          <button
+          <Button
             type="button"
             onClick={loadAnalytics}
             className="mt-4 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90"
           >
             <RefreshCw className="h-4 w-4" />
             Try Again
-          </button>
+          </Button>
         </div>
       </main>
     );
@@ -117,7 +118,7 @@ const Dashboard = () => {
         title="Admission Analytics Dashboard"
         description="Monitor university application performance and trends."
         action={
-          <button
+          <Button
             type="button"
             onClick={loadAnalytics}
             disabled={loading}
@@ -125,7 +126,7 @@ const Dashboard = () => {
           >
             <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
             {loading ? "Refreshing..." : "Refresh"}
-          </button>
+          </Button>
         }
       />
 
