@@ -8,9 +8,15 @@ import StatCard from "../components/common/StatCard";
 import ApplicationBarChart from "../components/dashboard/ApplicationBarChart";
 import ApplicationTrendChart from "../components/dashboard/ApplicationTrendChart";
 import DashboardSection from "../components/dashboard/DashboardSection";
+import usePageMeta from "../hooks/usePageMeta";
 import type { AdmissionAnalytics } from "../types/analytics";
 
 const Dashboard = () => {
+  usePageMeta({
+    title: "Dashboard",
+    description:
+      "University administration dashboard for monitoring key academic and application metrics.",
+  });
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [analytics, setAnalytics] = useState<AdmissionAnalytics | null>(null);
@@ -108,7 +114,7 @@ const Dashboard = () => {
   return (
     <AdminPageLayout>
       <PageHeader
-        title="Admission Analytics"
+        title="Admission Analytics Dashboard"
         description="Monitor university application performance and trends."
         action={
           <button

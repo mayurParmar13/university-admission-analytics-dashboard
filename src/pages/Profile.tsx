@@ -1,7 +1,13 @@
 import AdminPageLayout from "../components/common/AdminPageLayout";
 import PageHeader from "../components/common/PageHeader";
+import usePageMeta from "../hooks/usePageMeta";
 
 const Profile = () => {
+  usePageMeta({
+    title: "My Profile",
+    description:
+      "View and manage your university administration profile and account information.",
+  });
   return (
     <AdminPageLayout>
       <PageHeader
